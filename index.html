@@ -9,10 +9,43 @@
     body {
       margin: 0;
       padding: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
+
+    .container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+    }
+
+    main {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+
+    canvas {
+      width: 100%;
+      min-width: 600px;
+    }
+
+    .sideBar {
+      width: 15%;
+    }
+
   </style>
 </head>
 <body>
-  <div id="game"></div>
+  <div class="containter">
+    <h1>Dungeon Diver</h1>
+    <main>
+      <div id="playerStats" class="sideBar"><h3>Player stats</h3></div>
+      <div id="game"></div>
+      <div id="leaderBoard" class="sideBar"><h3>Leader Board</h3></div>
+    </main>
+</div>
 </body>
 </html>
