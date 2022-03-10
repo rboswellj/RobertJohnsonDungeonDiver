@@ -25,6 +25,11 @@ module.exports = {
       }
     ]
   },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  },
   plugins: [
     new CleanWebpackPlugin({
       root: path.resolve(__dirname, "../")
