@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import axios from 'axios';
+import {updateTopTime} from './apiRoutes'
 
 class levelOne extends Phaser.Scene
 {
@@ -8,21 +10,20 @@ class levelOne extends Phaser.Scene
     }
 
     init() {
-        this.playerSpeed = 300;
+        this.playerSpeed = 280;
         this.timer;
         this.deaths;
         this.endTime;
         this.keyCount = 0;
         this.gameWidth = this.sys.game.config.width;
         this.gameHeight = this.sys.game.config.height;
+        this.user = 'jstarr';
     }
 
     preload ()
     {
-        //load tilemap file
         this.load.image('gameTiles', './src/assets/Tiles.png');
         this.load.tilemapTiledJSON('tilemap', './src/assets/dungeon1.json');
-        // this.load.image('player', './src/assets/player.png');
         this.load.spritesheet('player', './src/assets/playerSpriteSheet.png', { frameWidth: 16, frameHeight: 16 });
         this.load.image('goal', './src/assets/goal.png');
         this.load.image('door', './src/assets/door.png');
@@ -31,7 +32,7 @@ class levelOne extends Phaser.Scene
       
     create ()
     {
-        // Map and tiles
+    // Map and tiles
 
     // Load in tileset
     const map = this.make.tilemap({ key: 'tilemap' });
@@ -223,6 +224,7 @@ class levelOne extends Phaser.Scene
         this.timer.paused = true;
         this.endTime = this.timer.getElapsedSeconds();
         console.log(`End Time: ${this.endTime}`);
+        updateTopTime(this.user, 1, this.endTime);
         return;
 
         // collect score data
@@ -244,7 +246,6 @@ class levelOne extends Phaser.Scene
             timer: this.timer.getElapsedSeconds.toFixed(1)
         }
     }
-    
 }
 
 const config = {
