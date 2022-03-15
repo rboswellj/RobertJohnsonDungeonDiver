@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import axios from 'axios';
-import {updateTopTime} from './apiRoutes'
+import {updateTopTime, updateState} from './apiRoutes';
 
 class levelOne extends Phaser.Scene
 {
@@ -12,12 +12,14 @@ class levelOne extends Phaser.Scene
     init() {
         this.playerSpeed = 280;
         this.timer;
-        this.deaths;
+        this.deaths = 0;
         this.endTime;
         this.keyCount = 0;
         this.gameWidth = this.sys.game.config.width;
         this.gameHeight = this.sys.game.config.height;
         this.user = 'jstarr';
+        this.levelName = 'level1';
+        updateState(this.user, {"keys": 0, "deaths": 0});
     }
 
     preload ()
@@ -198,13 +200,14 @@ class levelOne extends Phaser.Scene
 
     this.text
     .setFill(this.timer.paused ? '#FFFF00' : '#00FFFF')
-    .setText(this.timer.getElapsedSeconds().toFixed(1));
+    .setText(this.timer.getElapsedSeconds().toFixed(3));
 
     }
 
     getKey (player, key) {
         key.disableBody(true, true);
-        this.keyCount++
+        this.keyCount++;
+        updateState(this.user, {"keys": this.keyCount, "deaths": this.deaths});
         console.log(`Key picked up at ${this.timer.getElapsedSeconds().toFixed(1)}`);
         console.log('keys: ' + this.keyCount);
     }
@@ -212,6 +215,7 @@ class levelOne extends Phaser.Scene
     openDoor (player, door) {
         if(this.keyCount > 0) {
             this.keyCount--;
+            updateState(this.user, {"keys": this.keyCount, "deaths": this.deaths});
             door.disableBody();
             door.destroy();
             console.log(`door opened at ${this.timer.getElapsedSeconds().toFixed(1)}`);
@@ -222,9 +226,9 @@ class levelOne extends Phaser.Scene
         goal.disableBody(true, true);
         console.log('Goal reached');
         this.timer.paused = true;
-        this.endTime = this.timer.getElapsedSeconds();
+        this.endTime = this.timer.getElapsedSeconds().toFixed(3);
         console.log(`End Time: ${this.endTime}`);
-        updateTopTime(this.user, 1, this.endTime);
+        updateTopTime(this.user, this.levelName, this.endTime, this.deaths);
         return;
 
         // collect score data
@@ -234,18 +238,6 @@ class levelOne extends Phaser.Scene
         // prompt retry, next level
     }
 
-    getKeyCount() {
-        return  this.keyCount;       
-    }
-
-    toObject() {
-        return {
-            keys: this.keyCount,
-            deaths: 0,
-            endTime: this.endTime,
-            timer: this.timer.getElapsedSeconds.toFixed(1)
-        }
-    }
 }
 
 const config = {

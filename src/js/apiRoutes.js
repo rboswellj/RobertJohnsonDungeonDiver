@@ -19,20 +19,20 @@ export async function findTopUserTime(user, level) {
     .get(`${apiBaseUrl}/${user}`)
     .then((response => {
 
-        return response.data.data[`level${level}`].topTime;
+        return response.data.data['level1'].topTime;
     }))
     .catch((error) => {
         console.log(error);
     })
 }
 
-export async function updateTopTime(user, level, time) {
-    const topTime = await findTopUserTime(user, level);
+export async function updateTopTime(user, levelName, time, deaths) {
+    const topTime = await findTopUserTime(user, levelName);
     if (time < topTime) {
-        console.log(`New top time ${time} better than last time ${topTime}`);
+        console.log(`New top time ${time} better than besta time ${topTime}`);
         await axios
         .patch(`${apiBaseUrl}/${user}`, {
-            "level1": { "topTime": time }
+            "level1": { "topTime": time, "deaths": deaths }
         })
         .catch((error) => {
             console.log(error);
@@ -40,8 +40,19 @@ export async function updateTopTime(user, level, time) {
         console.log('top time updated');
     } else {
         console.log(`${time} is not better than top time ${topTime}`);
-        
-        
     }
+}
+
+export async function updateState(user, data) {
+
+        await axios
+        .patch(`${apiBaseUrl}/${user}`, {
+            "currentState": data
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+        console.log('top time updated');
+    
 }
 
