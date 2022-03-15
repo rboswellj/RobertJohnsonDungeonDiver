@@ -17,7 +17,7 @@ class levelOne extends Phaser.Scene
         this.keyCount = 0;
         this.gameWidth = this.sys.game.config.width;
         this.gameHeight = this.sys.game.config.height;
-        this.user = 'jstarr';
+        this.user = 'rjohn';
         this.levelName = 'level1';
         updateState(this.user, {"keys": 0, "deaths": 0});
     }
@@ -46,10 +46,13 @@ class levelOne extends Phaser.Scene
 
     // Map Objects
     this.goal = this.physics.add.staticSprite(this.gameWidth / 2 + 8, this.gameHeight / 2 -8, 'goal');
+    this.goal.body.setSize(40,40);
     this.door1 = this.physics.add.staticSprite(this.gameWidth / 2 , this.gameHeight / 2 + 72, 'door');     
     this.door2 = this.physics.add.staticSprite(this.gameWidth / 2 , this.gameHeight / 2 + 25, 'door');
     this.key1 = this.physics.add.staticSprite(280, 280, 'key');
+    this.key1.body.setSize(30,30);
     this.key2 = this.physics.add.staticSprite(225, 210, 'key');
+    this.key2.body.setSize(30,30);
 
     // Payer
     this.player = this.physics.add.sprite(186, 278, 'player');
@@ -248,7 +251,7 @@ const config = {
     physics: { 
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: 0
         }
     },

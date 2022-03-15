@@ -1,6 +1,6 @@
 import game from './js/levelOne';
+import {findTopUserTime} from './js/apiRoutes';
 
-let apiRoute = require('./js/apiRoutes');
 let currentUserName = 'jstarr';
 // const getCurrentUser = async (currentUser) => {
 //     const user = await apiRoute.findUser(currentUser);
@@ -9,7 +9,7 @@ let currentUserName = 'jstarr';
 let currentUserInfo = apiRoute.findUser(currentUserName);
 
 console.log(currentUserInfo);
-console.log(apiRoute.findTopUserTime(currentUserName, 1));
+console.log(findTopUserTime(currentUserName, 'level1'));
 
 let gameUI = document.getElementById('gameUI');
 let playerStats = document.getElementById('playerStats');
@@ -21,3 +21,4 @@ keyDiv.innerHTML = `<span class="uiLabel">Keys:</span> ${
   game.getKeyCount || 0
 }`;
 gameUI.appendChild(keyDiv);
+

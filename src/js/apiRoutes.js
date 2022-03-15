@@ -29,7 +29,7 @@ export async function findTopUserTime(user, level) {
 export async function updateTopTime(user, levelName, time, deaths) {
     const topTime = await findTopUserTime(user, levelName);
     if (time < topTime) {
-        console.log(`New top time ${time} better than besta time ${topTime}`);
+        console.log(`New top time ${time} better than best time ${topTime}`);
         await axios
         .patch(`${apiBaseUrl}/${user}`, {
             "level1": { "topTime": time, "deaths": deaths }
@@ -52,7 +52,6 @@ export async function updateState(user, data) {
         .catch((error) => {
             console.log(error);
         });
-        console.log('top time updated');
-    
+        console.log('state updated')
 }
 
