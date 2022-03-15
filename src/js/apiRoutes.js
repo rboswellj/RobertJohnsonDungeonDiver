@@ -30,15 +30,17 @@ export async function updateTopTime(user, level, time) {
     const topTime = await findTopUserTime(user, level);
     if (time < topTime) {
         console.log(`New top time ${time} better than last time ${topTime}`);
-    } else {
-        console.log(`${time} is not better than top time ${topTime}`);
-        const res = await axios
+        await axios
         .patch(`${apiBaseUrl}/${user}`, {
             "level1": { "topTime": time }
         })
         .catch((error) => {
             console.log(error);
-        })
+        });
+        console.log('top time updated');
+    } else {
+        console.log(`${time} is not better than top time ${topTime}`);
+        
         
     }
 }
