@@ -17,7 +17,7 @@ class levelOne extends Phaser.Scene
         this.keyCount = 0;
         this.gameWidth = this.sys.game.config.width;
         this.gameHeight = this.sys.game.config.height;
-        this.user = 'rjohn';
+        this.user = 'alsmit';
         this.levelName = 'level1';
         updateState(this.user, {"keys": 0, "deaths": 0});
     }

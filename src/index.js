@@ -1,12 +1,14 @@
 import game from './js/levelOne';
-import {findTopUserTime} from './js/apiRoutes';
+import {findUser, findTopUserTime} from './js/apiRoutes';
 
-let currentUserName = 'jstarr';
+const stateEvent = new CustomEvent('stateChanged', )
+
+let currentUserName = 'alsmit';
 // const getCurrentUser = async (currentUser) => {
 //     const user = await apiRoute.findUser(currentUser);
 //     return user;
 // }
-let currentUserInfo = apiRoute.findUser(currentUserName);
+let currentUserInfo = findUser(currentUserName);
 
 console.log(currentUserInfo);
 console.log(findTopUserTime(currentUserName, 'level1'));
@@ -17,8 +19,7 @@ let leaderBoards = document.getElementById('leaderBoard');
 
 let keyDiv = document.createElement('div');
 let keyImage = 'src/assets/key.png';
-keyDiv.innerHTML = `<span class="uiLabel">Keys:</span> ${
-  game.getKeyCount || 0
-}`;
+keyDiv.innerHTML = `<h3>keys: ${keyCount || 0}</h3>`;
+
 gameUI.appendChild(keyDiv);
 
