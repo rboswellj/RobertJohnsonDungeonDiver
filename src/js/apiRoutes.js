@@ -1,18 +1,29 @@
 const axios = require('axios');
+import { retrieveUser } from '..';
+
 
 const apiBaseUrl = 'http://localhost:5000/api';
 
-export function findUser(searchedUser) {
-    return axios
-    .get(`${apiBaseUrl}/search?userId=${searchedUser}`)
-    .then((response => {
+// export function findUser(searchedUser) {
+//     return axios
+//     .get(`${apiBaseUrl}/search?userId=${searchedUser}`)
+//     .then((response => {
+//         return response.data.data;
+//     }))
+//     .catch((error) => {
+//         console.log(error);
+//     })
+// }
 
-        return response.data.data;
-    }))
-    .catch((error) => {
-        console.log(error);
-    })
-}
+export const findUser = async (user) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/${user}`);
+        // console.log(data);
+        return response.data;
+    } catch(err) {
+        console.log(err);
+    }
+};
 
 export async function findTopUserTime(user, level) {
     return await axios
@@ -55,4 +66,15 @@ export async function updateState(user, data) {
         console.log('state updated')
 }
 
-
+export function getKeyCount(user) {
+    axios
+    .get(`${apiBaseUrl}/${user}`)
+    .then(response => {
+        let keys = response.data.data.currentState.keys;
+        // console.log(`New Key Count: ${keys}`);
+        return keys;
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}

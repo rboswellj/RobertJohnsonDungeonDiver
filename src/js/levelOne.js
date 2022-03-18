@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import axios from 'axios';
 import {updateTopTime, updateState} from './apiRoutes';
+import {printKeys} from '../index'
 
 class levelOne extends Phaser.Scene
 {
@@ -17,9 +18,10 @@ class levelOne extends Phaser.Scene
         this.keyCount = 0;
         this.gameWidth = this.sys.game.config.width;
         this.gameHeight = this.sys.game.config.height;
-        this.user = 'alsmit';
+        this.user = 'jstarr';
         this.levelName = 'level1';
         updateState(this.user, {"keys": 0, "deaths": 0});
+        printKeys(0);
     }
 
     preload ()
@@ -211,6 +213,7 @@ class levelOne extends Phaser.Scene
         key.disableBody(true, true);
         this.keyCount++;
         updateState(this.user, {"keys": this.keyCount, "deaths": this.deaths});
+        printKeys(this.keyCount);
         console.log(`Key picked up at ${this.timer.getElapsedSeconds().toFixed(1)}`);
         console.log('keys: ' + this.keyCount);
     }
@@ -219,6 +222,7 @@ class levelOne extends Phaser.Scene
         if(this.keyCount > 0) {
             this.keyCount--;
             updateState(this.user, {"keys": this.keyCount, "deaths": this.deaths});
+            printKeys(this.keyCount);
             door.disableBody();
             door.destroy();
             console.log(`door opened at ${this.timer.getElapsedSeconds().toFixed(1)}`);
