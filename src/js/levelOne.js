@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import axios from 'axios';
 import {updateTopTime, updateState} from './apiRoutes';
-import {printKeys} from '../index'
+import {printKeys, rankUsers, currentUserInfo} from '../index'
 
 class levelOne extends Phaser.Scene
 {
@@ -229,13 +229,15 @@ class levelOne extends Phaser.Scene
         }
     }
 
-    levelComplete(player, goal) {
+    async levelComplete(player, goal) {
         goal.disableBody(true, true);
         console.log('Goal reached');
         this.timer.paused = true;
         this.endTime = this.timer.getElapsedSeconds().toFixed(3);
         console.log(`End Time: ${this.endTime}`);
-        updateTopTime(this.user, this.levelName, this.endTime, this.deaths);
+        await updateTopTime(this.user, this.levelName, this.endTime, this.deaths);
+        await rankUsers();
+        await currentUserInfo();
         return;
 
         // collect score data
@@ -255,7 +257,7 @@ const config = {
     physics: { 
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: 0
         }
     },
@@ -263,8 +265,5 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-let keys = `Keys: ${levelOne.getKeyCount}`;
-console.log(levelOne.toObject);
-console.log(keys);
 
 export default levelOne;

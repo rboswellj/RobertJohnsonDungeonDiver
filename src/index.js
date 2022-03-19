@@ -1,57 +1,61 @@
 import game from './js/levelOne';
 import axios from 'axios';
-import {findUser, findTopUserTime} from './js/apiRoutes';
+import {getAllUsers, getUser, getUserTopTime, getUserRankings} from './js/apiRoutes';
 
-const stateEvent = new CustomEvent('stateChanged', )
+const leaderBoards = document.getElementById('leaderBoard');
+const boardList = document.getElementById('level1LeaderList');
+const statsDiv = document.getElementById("playerStats");
+const level1Stats = document.getElementById("level1Stats");
 
 let currentUserName = 'jstarr';
-// const getCurrentUser = async (currentUser) => {
-//     const user = await apiRoute.findUser(currentUser);
-//     return user;
-// }
-let currentUserInfo = findUser(currentUserName).then(response => {
-    // console.log(response);
-    let data = {
-        id: response.data.id,
-        name: response.data.name,
-        userId: response.data.userId,
-        highestLevelComplete: response.data.highestLevelComplete,
-        level1: { topTime: response.data["level1"].topTime, deaths: response.data.level1.deaths },
-        level3: { topTime: response.data["level2"].topTime, deaths: response.data.level1.deaths },
-    }
-    let statsDiv = document.getElementById("playerStats");
-    let level1Stats = document.createElement("div");
-    level1Stats.innerHTML = `
-    <h4>Level One Stats for ${data.name}</h4>
-    <ul>
-        <li>Highest Score: </li>
+
+export async function currentUserInfo() {
+    try {
+        const response = await getUser(currentUserName);
+        let data = response.data;
+        console.log(data);
+        
+        level1Stats.innerHTML = `
+        <h4>Level One Stats for ${data.name}</h4>
+        <ul>
+            <li>Highest Score: </li>
         <li>Lowest Time: ${data.level1.topTime}</li>
         <li>Deaths: ${data.level1.deaths}</li>
-    </ul>
-    `;
-    statsDiv.appendChild(level1Stats);
+        </ul>
+        `;
 
-})
-.catch(error => console.log(error));
-// let currentUserInfo = findUser(currentUserName);
+    } catch(err) {
+        console.log(err);
+    }
+}
+currentUserInfo(currentUserName);
 
-// findUser(currentUserName).then((result) => {
-//     console.log(result.data);
-//     return result.data.data;    
-// });
+export async function rankUsers() {
+    try {
+        let userArray = [];
+        let users = await getAllUsers();
+        for(let user of users.data){
+            let data = { 
+                userId: user.userId, 
+                topTime: user.level1.topTime
+            }
+            userArray.push(data);
+        }
+        userArray.sort((a,b) => (a.topTime > b.topTime) ? 1 : ((b.topTime > a.topTime) ? -1 : 0))
+        console.log(userArray);
+        boardList.innerHTML = "";
+        userArray.forEach(user => {
+            boardList.innerHTML += `<li>${user.userId} : ${user.topTime}`;
+        });
+        
 
-// let currentUserInfo = {};
-// export const retrieveUser = (data) =>{
-//     currentUserInfo = data;
-// }
+    } catch(err) {
+        console.log(err);
+    }
+}
 
-console.log(`find user function`);
-setTimeout(() => console.log(currentUserInfo),2000);
-console.log(findTopUserTime(currentUserName, 'level1'));
-
+rankUsers();
 let gameUI = document.getElementById('gameUI');
-let playerStats = document.getElementById('playerStats');
-let leaderBoards = document.getElementById('leaderBoard');
 
 let keyDiv = document.createElement('div');
 gameUI.appendChild(keyDiv);

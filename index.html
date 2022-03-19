@@ -9,15 +9,33 @@
 </head>
 <body>
   <div class="containter">
-    <h1>Dungeon Diver</h1>
+    <header>
+      <h1>Dungeon Diver</h1>
+      <div id="login">
+        <form name="loginForm" id="loginForm">
+          <label for="userName">User Name</label>
+          <input type="text" name="userName">
+          <label for="password">Password</label>
+          <input type="password" name="password">
+          <input type="submit" value="Login">
+          <button id="createUser">Create Account</button>
+        </form>
+      </div>
+    </header>
     <main>
-      <div id="playerStats" class="sideBar"><h3>Player stats</h3></div>
+      <div id="playerStats" class="sideBar">
+        <h3>Player stats</h3>
+        <div id ="level1Stats"></div>
+      </div>
       <div id ="gameContainer">
         <div id="game"></div>
         <div id="gameUI">
         </div>
       </div>
-      <div id="leaderBoard" class="sideBar"><h3>Leader Board</h3></div>
+      <div id="leaderBoard" class="sideBar"><h3>Leader Board</h3>
+      <h4>Level 1</h4>
+      <ol id="level1LeaderList"></ol>
+      </div>
     </main>
 </div>
 </body>
