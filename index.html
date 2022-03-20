@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0">
   <title>Dungeon Dive</title>
-  <link href="./src/css/normalize.css" rel="stylesheet">
   <link rel="stylesheet" href="css/mystyles.css">
-  <link href="./src/css/main.css" rel="stylesheet">
 </head>
+
 <body>
   <div class="containter">
-    <header class = "navbar">
+    <header class="navbar">
       <div id="pageTitle" class="level-left hero"></div>
-        <h1>Dungeon Diver</h1>
+      <h1>Dungeon Diver</h1>
       <div id="login" class="level-right">
         <form name="loginForm" id="loginForm">
           <label for="userName">User Name</label>
@@ -24,21 +24,24 @@
         </form>
       </div>
     </header>
-    <main>
-      <div id="playerStats card" class="sideBar">
-        <h3>Player stats</h3>
-        <div id ="level1Stats"></div>
-      </div>
-      <div id ="gameContainer">
-        <div id="game"></div>
-        <div id="gameUI">
+    <main class="container">
+      <div class="main-wrap level-left">
+        <div id="playerStats" class="sideBar card">
+          <h3 class="card-header">Player stats</h3>
+          <div id="level1Stats" class="card-content"></div>
         </div>
-      </div>
-      <div id="leaderBoard card" class="sideBar"><h3>Leader Board</h3>
-      <h4 class="card-header">Level 1</h4>
-      <ol id="level1LeaderList" class="card-content"></ol>
-      </div>
+        <div id="gameContainer" class="container">
+          <div id="game" class="container"></div>
+          <div id="gameUI">
+          </div>
+        </div>
+        <div id="leaderBoard" class="sideBar card">
+          <h4 class="card-header">Level 1 Leader Board</h4>
+          <ol id="level1LeaderList" class="card-content"></ol>
+        </div>
+        </div>
     </main>
-</div>
+  </div>
 </body>
+
 </html>
