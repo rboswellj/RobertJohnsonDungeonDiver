@@ -1,13 +1,16 @@
 import game from './js/levelOne';
-import axios from 'axios';
-import {getAllUsers, getUser, getUserTopTime, getUserRankings} from './js/apiRoutes';
+import {getAllUsers, getUser, getUserTopTime, getUserRankings, updateTopTime} from './js/apiRoutes';
 
 const leaderBoards = document.getElementById('leaderBoard');
 const boardList = document.getElementById('level1LeaderList');
 const statsDiv = document.getElementById("playerStats");
 const level1Stats = document.getElementById("level1Stats");
 
+
+
 let currentUserName = 'jstarr';
+
+// updateTopTime(currentUserName, "level1", "9.001", 0)
 
 export async function currentUserInfo() {
     try {
@@ -41,7 +44,7 @@ export async function rankUsers() {
             }
             userArray.push(data);
         }
-        userArray.sort((a,b) => (a.topTime > b.topTime) ? 1 : ((b.topTime > a.topTime) ? -1 : 0))
+        userArray.sort((a,b) => (parseFloat(a.topTime) > parseFloat(b.topTime)) ? 1 : ((parseFloat(b.topTime) > parseFloat(a.topTime)) ? -1 : 0))
         console.log(userArray);
         boardList.innerHTML = "";
         userArray.forEach(user => {

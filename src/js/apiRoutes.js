@@ -41,7 +41,12 @@ export const getUserRankings = async () => {
 
 export async function updateTopTime(user, levelName, time, deaths) {
     try {
-        const topTime = await getUserTopTime(user, levelName);
+        const topTime = parseFloat(await getUserTopTime(user, levelName));
+        try {
+            parseFloat(time, time);
+        } catch(err) {
+            console.log(err);
+        }
         if (time < topTime) {
             console.log(`New top time ${time} better than best time ${topTime}`);
             try {

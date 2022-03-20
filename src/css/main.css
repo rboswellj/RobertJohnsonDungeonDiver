@@ -1,15 +1,4 @@
 html,
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
 
     main {
       width: 100%;
