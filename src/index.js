@@ -1,6 +1,6 @@
 import game from './game/levelOne';
 
-import {getAllUsers, getUser, loginUser, getAuthedUser, getUserTopTime, getUserRankings, updateTopTime} from './js/apiRoutes';
+import {getAllUsers, getUser, loginUser, signupUser} from './js/apiRoutes';
 import axios from 'axios';
 
 const leaderBoards = document.getElementById('leaderBoard');
@@ -10,8 +10,7 @@ const level1Stats = document.getElementById("level1Stats");
 
 const loginDiv = document.getElementById("loginWrap");
 let loginForm = document.getElementById("loginForm");
-let loginId = loginForm.userId.value;
-let loginPass = loginForm.password.value;
+
 
 let currentUserName = '';
 
@@ -26,8 +25,12 @@ document.getElementById("loginButton").addEventListener("click", async function(
     // loginUser("rboswellj@gmail.com", "mypassword");
   });
 
-  document.getElementById("createUser").addEventListener("click", function(event){
+  document.getElementById("createUser").addEventListener("click", async function(event){
     event.preventDefault()
+    let loginId = loginForm.userId.value;
+    let loginPass = loginForm.password.value
+    console.log(`login: ${loginId} pass: ${loginPass}`);
+    await signupUser(loginId, loginPass);
   });
 
 export async function authedUser(userId) {
@@ -45,7 +48,7 @@ export async function currentUserInfo() {
             console.log(data);
             
             level1Stats.innerHTML = `
-            <h4>Level One Stats for ${data.name}</h4>
+            <h4>Level One Stats for ${data.userId}</h4>
             <ul>
                 <li>Highest Score: </li>
             <li>Lowest Time: ${data.level1.topTime}</li>

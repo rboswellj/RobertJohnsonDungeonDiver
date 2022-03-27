@@ -14,6 +14,8 @@ export const getAllUsers = async () => {
     }
 }
 
+// Authorization and accounts
+
 export async function loginUser(userId, password) {
     try {
         let loginObject = {
@@ -42,6 +44,35 @@ export async function loginUser(userId, password) {
     }
 }
 
+export async function signupUser(userId, password) {
+    try {
+        let signupObject = {
+            userId: userId,
+            password: password
+        }
+        let token = await axios.post(`${apiLoginBase}/signup`, signupObject);
+        console.log(token);
+        console.log(token.data.token);
+        try {
+            const response = await axios.get(`${apiLoginBase}/me`, { 
+                headers: {
+                    "token": token.data.token
+                }
+            });
+            console.log(response.data);
+            authedUser(response.data.userId);
+        } catch(err) {
+            console.error('signupUser - exchange token route');
+            console.error(err);
+        }
+    } catch(err) {
+        console.error('signupUser get token route')
+        console.error(err);
+        document.getElementById("loginMessage").innerHTML = "login in use";
+    }
+}
+
+// User score info
 
 export const getUser = async (user) => {
     try {

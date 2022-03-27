@@ -37,8 +37,7 @@ class levelOne extends Phaser.Scene
     create ()
     {
         // Menu
-        this.scene.pause();
-        this.keyPause = true;
+        this.pauseScene();
         // Map and tiles
 
         // Load in tileset
@@ -231,6 +230,16 @@ class levelOne extends Phaser.Scene
                 door.destroy();
                 console.log(`door opened at ${this.timer.getElapsedSeconds().toFixed(1)}`);
             }
+        }
+
+        pauseScene () {
+            this.scene.pause();
+            this.keyPause = true;
+        }
+
+        unpauseScene () {
+            this.scene.resume();
+            this.keyPause = false;
         }
 
         async levelComplete(player, goal) {
