@@ -1,47 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1.0"
+    />
+    <title>Dungeon Dive</title>
+    <link rel="stylesheet" href="css/mystyles.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0">
-  <title>Dungeon Dive</title>
-  <link rel="stylesheet" href="css/mystyles.css">
-</head>
-
-<body>
-  <div class="containter">
-    <header class="navbar">
-      <div id="pageTitle" class="level-left hero"></div>
-      <h1>Dungeon Diver</h1>
-      <div id="login" class="level-right">
-        <form name="loginForm" id="loginForm">
-          <label for="userName">User Name</label>
-          <input type="text" name="userName">
-          <label for="password">Password</label>
-          <input type="password" name="password">
-          <input type="submit" value="Login">
-          <button id="createUser">Create Account</button>
-        </form>
-      </div>
-    </header>
-    <main class="container">
-      <div class="main-wrap level-left">
-        <div id="playerStats" class="sideBar card">
-          <h3 class="card-header">Player stats</h3>
-          <div id="level1Stats" class="card-content"></div>
+  <body>
+    <div class="containter">
+      <!-- Header -->
+      <header class="navbar">
+        <div id="pageTitle" class="logo">
+          <span class="titleText">Dungeon Diver</span>
         </div>
-        <div id="gameContainer" class="container">
-          <div id="game" class="container"></div>
-          <div id="gameUI">
+        <div id="loginWrap">
+          <div id="loginDiv" class="login level">
+            <form name="loginForm" id="loginForm">
+              <label for="userName">User ID</label>
+              <input
+                type="text"
+                name="userId"
+                id="userId"
+                autocomplete="username"
+              />
+              <label for="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                autocomplete="current-password"
+              />
+              <input type="submit" id="loginButton" value="login" />
+              <button id="createUser">Create Account</button>
+            </form>
+          </div>
+          <div id="loginMessage"></div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="container">
+        <div class="main-wrap">
+          <div id="playerStats" class="sidebar card">
+            <h3 class="card-header-title">Player stats</h3>
+            <div id="level1Stats" class="card-content"></div>
+          </div>
+          <div id="gameContainer" class="container card">
+            <div id="game" class="container"></div>
+            <div id="gameUI"></div>
+          </div>
+          <div id="leaderBoard" class="sidebar card">
+            <h4 class="card-header-title">Leader Board</h4>
+            <h4 class="card-header-title">Level 1</h4>
+            <ol id="level1LeaderList" class="card-content"></ol>
           </div>
         </div>
-        <div id="leaderBoard" class="sideBar card">
-          <h4 class="card-header">Level 1 Leader Board</h4>
-          <ol id="level1LeaderList" class="card-content"></ol>
-        </div>
-        </div>
-    </main>
-  </div>
-</body>
-
+      </main>
+    </div>
+  </body>
 </html>

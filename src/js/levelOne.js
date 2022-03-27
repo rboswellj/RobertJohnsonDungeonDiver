@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import axios from 'axios';
-import {updateTopTime, updateState} from './apiRoutes';
+import {updateTopTime, updateState} from '../js/apiRoutes';
 import {printKeys, rankUsers, currentUserInfo} from '../index'
 
 class levelOne extends Phaser.Scene
@@ -20,7 +20,6 @@ class levelOne extends Phaser.Scene
         this.gameHeight = this.sys.game.config.height;
         this.user = 'jstarr';
         this.levelName = 'level1';
-        updateState(this.user, {"keys": 0, "deaths": 0});
         printKeys(0);
     }
 
@@ -212,7 +211,6 @@ class levelOne extends Phaser.Scene
     getKey (player, key) {
         key.disableBody(true, true);
         this.keyCount++;
-        updateState(this.user, {"keys": this.keyCount, "deaths": this.deaths});
         printKeys(this.keyCount);
         console.log(`Key picked up at ${this.timer.getElapsedSeconds().toFixed(1)}`);
         console.log('keys: ' + this.keyCount);
@@ -221,7 +219,6 @@ class levelOne extends Phaser.Scene
     openDoor (player, door) {
         if(this.keyCount > 0) {
             this.keyCount--;
-            updateState(this.user, {"keys": this.keyCount, "deaths": this.deaths});
             printKeys(this.keyCount);
             door.disableBody();
             door.destroy();
@@ -257,7 +254,7 @@ const config = {
     physics: { 
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: 0
         }
     },

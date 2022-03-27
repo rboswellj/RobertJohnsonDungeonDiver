@@ -5,8 +5,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
 // Set your brand colors
-$purple: #8A4D76;
-$pink: #FA7C91;
 $brown: #757763;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
@@ -15,8 +13,10 @@ $beige-lighter: #EFF0EB;
 $family-sans-serif: "Nunito", sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$primary: $purple;
-$link: $pink;
+$primary: #20416e;
+$link: #f7be75;
+$secondary: #5057b8;
+$titles: #e9dbc3;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
@@ -32,24 +32,69 @@ $input-shadow: none;
 
 body {
     width: 100vw;
+    height: 100vh;
     padding: 0;
     margin: 0;
+    background-color: $secondary;
 }
 
+main {
+  padding: 1em 0 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-wrap {
+  display: flex;
+  flex-direction: row;
+}
 
   header {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    color: whitesmoke;
+  }
+
+  .navbar {
+    background-color: $primary;
+  }
+
+  .navbar label {
+    font-weight: 500;
+  }
+
+  #loginWrap {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #loginDiv {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .titleText {
+    font-size: 2em;
+    font-weight: 700;
   }
 
   #game {
     width: 100%;
   }
 
+  .sidebar {
+    padding: 1em;
+    margin: 1em;
+  }
+
   #gameContainer {
     flex: 4;
     justify-content: center;
-    max-width: 80vh;
+    padding: 1em;
+    margin: .5em, 1em;
   }
 
   #playerStats {
@@ -62,10 +107,6 @@ body {
 
   canvas {
     width: 100%;
-    max-height: 80vh;
-    max-width: 80vh;
-  }
-
-  .sideBar {
-    width: 15%;
+    max-height: 90vh;
+    max-width: 90vh;
   }

@@ -1,34 +1,64 @@
-import game from './js/levelOne';
-import {getAllUsers, getUser, getUserTopTime, getUserRankings, updateTopTime} from './js/apiRoutes';
+import game from './game/levelOne';
+
+import {getAllUsers, getUser, loginUser, getAuthedUser, getUserTopTime, getUserRankings, updateTopTime} from './js/apiRoutes';
+import axios from 'axios';
 
 const leaderBoards = document.getElementById('leaderBoard');
 const boardList = document.getElementById('level1LeaderList');
 const statsDiv = document.getElementById("playerStats");
 const level1Stats = document.getElementById("level1Stats");
 
+const loginDiv = document.getElementById("loginWrap");
+let loginForm = document.getElementById("loginForm");
+let loginId = loginForm.userId.value;
+let loginPass = loginForm.password.value;
 
+let currentUserName = '';
 
-let currentUserName = 'jstarr';
+// updateTopTime(currentUserName, "level1", "9.001", 0);
 
-// updateTopTime(currentUserName, "level1", "9.001", 0)
+document.getElementById("loginButton").addEventListener("click", async function(event){
+    event.preventDefault();
+    let loginId = loginForm.userId.value;
+    let loginPass = loginForm.password.value
+    console.log(`login: ${loginId} pass: ${loginPass}`);
+    await loginUser(loginId, loginPass);
+    // loginUser("rboswellj@gmail.com", "mypassword");
+  });
+
+  document.getElementById("createUser").addEventListener("click", function(event){
+    event.preventDefault()
+  });
+
+export async function authedUser(userId) {
+    currentUserName = userId;
+    console.log(currentUserName);
+    loginDiv.style.display = "none";
+    await currentUserInfo(userId);
+} 
 
 export async function currentUserInfo() {
-    try {
-        const response = await getUser(currentUserName);
-        let data = response.data;
-        console.log(data);
-        
-        level1Stats.innerHTML = `
-        <h4>Level One Stats for ${data.name}</h4>
-        <ul>
-            <li>Highest Score: </li>
-        <li>Lowest Time: ${data.level1.topTime}</li>
-        <li>Deaths: ${data.level1.deaths}</li>
-        </ul>
-        `;
-
-    } catch(err) {
-        console.log(err);
+    if(currentUserName) {
+        try {
+            const response = await getUser(currentUserName);
+            let data = response.data;
+            console.log(data);
+            
+            level1Stats.innerHTML = `
+            <h4>Level One Stats for ${data.name}</h4>
+            <ul>
+                <li>Highest Score: </li>
+            <li>Lowest Time: ${data.level1.topTime}</li>
+            <li>Deaths: ${data.level1.deaths}</li>
+            </ul>
+            `;
+    
+        } catch(err) {
+            console.error('current user info route');
+            console.log(err);
+        }
+    } else {
+        level1Stats.innerHTML = "Login or create account to see your stats";
     }
 }
 currentUserInfo(currentUserName);
@@ -70,6 +100,7 @@ export function printKeys(keys) {
         keyDiv.innerHTML += keyImage;
     }
 }
+
 
 
 

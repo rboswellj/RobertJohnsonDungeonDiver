@@ -1,6 +1,5 @@
 var GameMenu = function() {};
 
-
 GameMenu.prototype = {
 
   menuConfig: {
