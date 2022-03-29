@@ -1,6 +1,6 @@
-import game from './game/levelOne';
+import game from './game/app.js';
 
-import {getAllUsers, getUser, loginUser, signupUser} from './js/apiRoutes';
+import {getAllUsers, getUser, loginUser, signupUser, addNewUser} from './js/apiRoutes';
 import axios from 'axios';
 
 const leaderBoards = document.getElementById('leaderBoard');
@@ -12,7 +12,9 @@ const loginDiv = document.getElementById("loginWrap");
 let loginForm = document.getElementById("loginForm");
 
 
-let currentUserName = '';
+export let currentUserName = '';
+
+// addNewUser("steve", "level1", "35", "0");
 
 // updateTopTime(currentUserName, "level1", "9.001", 0);
 
@@ -57,6 +59,7 @@ export async function currentUserInfo() {
             `;
     
         } catch(err) {
+            level1Stats.innerHTML = `No levels completed`;
             console.error('current user info route');
             console.log(err);
         }

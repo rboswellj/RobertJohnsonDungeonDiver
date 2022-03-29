@@ -13,10 +13,14 @@ $beige-lighter: #EFF0EB;
 $family-sans-serif: "Nunito", sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$primary: #20416e;
-$link: #f7be75;
-$secondary: #5057b8;
-$titles: #e9dbc3;
+$primary: #B33030;
+$secondary: #19282F;
+$third: #8D8DAA;
+$fourth: #D3ECA7;
+$offWhite: #F5F5F5;
+$grey: #DFDFDE;
+$titles: $offWhite;
+$link: $primary;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
@@ -35,7 +39,7 @@ body {
     height: 100vh;
     padding: 0;
     margin: 0;
-    background-color: $secondary;
+    background-color: $grey;
 }
 
 main {
@@ -55,7 +59,12 @@ main {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    color: whitesmoke;
+    color: $offWhite;
+  }
+
+  .titles {
+    color: $primary;
+    font-weight: 500;
   }
 
   .navbar {
@@ -64,6 +73,7 @@ main {
 
   .navbar label {
     font-weight: 500;
+    padding: 0 .5em;
   }
 
   #loginWrap {
@@ -74,6 +84,7 @@ main {
   #loginDiv {
     display: flex;
     flex-direction: row;
+    align-content: center;
   }
 
   .titleText {
@@ -87,14 +98,32 @@ main {
 
   .sidebar {
     padding: 1em;
-    margin: 1em;
+    margin: 0, 2em;
+    background-color: $offWhite;
+  }
+
+  #playerStats {
+    border-radius: 2% 0 0 2%;
+  }
+
+  #leaderBoard {
+    border-radius: 0 2% 2% 0;
   }
 
   #gameContainer {
     flex: 4;
     justify-content: center;
-    padding: 1em;
-    margin: .5em, 1em;
+    padding: .5em;
+    margin: 1em, 1em;
+    background-color: $offWhite; 
+  }
+
+  .stats {
+    padding: .5em 0 0 .5em;
+  }
+
+  .leaderboard {
+    padding: .5em 0 0 2em;
   }
 
   #playerStats {
@@ -109,4 +138,5 @@ main {
     width: 100%;
     max-height: 90vh;
     max-width: 90vh;
+    border-radius: 2%;
   }

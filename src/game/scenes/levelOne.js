@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import axios from 'axios';
-import {updateTopTime, updateState} from '../js/apiRoutes';
-import {printKeys, rankUsers, currentUserInfo} from '../index'
+import {updateTopTime} from '../../js/apiRoutes';
+import {printKeys, rankUsers, currentUserInfo, currentUserName} from '../../index'
 
 class levelOne extends Phaser.Scene
 {
@@ -18,25 +18,26 @@ class levelOne extends Phaser.Scene
         this.keyCount = 0;
         this.gameWidth = this.sys.game.config.width;
         this.gameHeight = this.sys.game.config.height;
-        this.user = 'jstarr';
+        this.user = currentUserName;
         this.levelName = 'level1';
         printKeys(0);
+        console.log(currentUserName);
     }
 
-    preload ()
-    {
-        this.load.image('gameTiles', './src/assets/Tiles.png');
-        this.load.tilemapTiledJSON('tilemap', './src/assets/dungeon1.json');
-        this.load.spritesheet('player', './src/assets/playerSpriteSheet.png', { frameWidth: 16, frameHeight: 16 });
-        this.load.image('goal', './src/assets/goal.png');
-        this.load.image('door', './src/assets/door.png');
-        this.load.image('key', './src/assets/key.png');
-    }
+    // preload ()
+    // {
+    //     this.load.image('gameTiles', './src/assets/Tiles.png');
+    //     this.load.tilemapTiledJSON('tilemap', './src/assets/dungeon1.json');
+    //     this.load.spritesheet('player', './src/assets/playerSpriteSheet.png', { frameWidth: 16, frameHeight: 16 });
+    //     this.load.image('goal', './src/assets/goal.png');
+    //     this.load.image('door', './src/assets/door.png');
+    //     this.load.image('key', './src/assets/key.png');
+    // }
       
     create ()
     {
     // Map and tiles
-
+    // this.pauseScene();
     // Load in tileset
     const map = this.make.tilemap({ key: 'tilemap' });
     const tileset = map.addTilesetImage('dungeon', 'gameTiles');
@@ -51,8 +52,10 @@ class levelOne extends Phaser.Scene
     this.door1 = this.physics.add.staticSprite(this.gameWidth / 2 , this.gameHeight / 2 + 72, 'door');     
     this.door2 = this.physics.add.staticSprite(this.gameWidth / 2 , this.gameHeight / 2 + 25, 'door');
     this.key1 = this.physics.add.staticSprite(280, 280, 'key');
+    this.key1.setScale(1.5);
     this.key1.body.setSize(30,30);
     this.key2 = this.physics.add.staticSprite(225, 210, 'key');
+    this.key2.setScale(1.5);
     this.key2.body.setSize(30,30);
 
     // Payer
@@ -236,31 +239,35 @@ class levelOne extends Phaser.Scene
         await rankUsers();
         await currentUserInfo();
         return;
+    }
 
-        // collect score data
-        // display score data
-        // check against any saved data for level/player
-        // upload score data if better than last score
-        // prompt retry, next level
+    pauseScene () {
+        this.scene.pause();
+        this.keyPause = true;
+    }
+
+    unpauseScene () {
+        this.scene.resume();
+        this.keyPause = false;
     }
 
 }
 
-const config = {
-    type: Phaser.AUTO,
-    parent: 'game',
-    width: 320,
-    height: 320,
-    physics: { 
-        default: 'arcade',
-        arcade: {
-            debug: false,
-            gravity: 0
-        }
-    },
-    scene: levelOne
-};
+// const config = {
+//     type: Phaser.AUTO,
+//     parent: 'game',
+//     width: 320,
+//     height: 320,
+//     physics: { 
+//         default: 'arcade',
+//         arcade: {
+//             debug: false,
+//             gravity: 0
+//         }
+//     },
+//     scene: levelOne
+// };
 
-const game = new Phaser.Game(config);
+// const game = new Phaser.Game(config);
 
 export default levelOne;

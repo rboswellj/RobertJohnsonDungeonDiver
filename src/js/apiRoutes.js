@@ -104,28 +104,56 @@ export const getUserRankings = async () => {
     }
 }
 
+export async function addNewUser(user, levelName, time, deaths) {
+    try {
+        let response = await axios.post(`${apiBaseUrl}/users/new`, {
+            userId: user,
+            highestLevelComplete: levelName,
+            level1: {topTime: time, deaths: deaths}
+        });
+    } catch(err) {
+        console.error("addNewUser apiroutes 111");
+        console.log(err);
+    }
+}
+
 export async function updateTopTime(user, levelName, time, deaths) {
     try {
         const topTime = parseFloat(await getUserTopTime(user, levelName));
-        try {
-            parseFloat(time, time);
-        } catch(err) {
-            console.error('updateTopTime parseFloat');
-            console.log(err);
-        }
-        if (time < topTime) {
-            console.log(`New top time ${time} better than best time ${topTime}`);
+        console.log(topTime);
+        if(topTime) {
             try {
-                await axios.patch(`${apiBaseUrl}/user/${user}`, {
-                "level1": { "topTime": time, "deaths": deaths }
-            })
+                parseFloat(time, time);
             } catch(err) {
-                console.log('updateTopTime patch operation');
+                console.error('updateTopTime parseFloat');
                 console.log(err);
             }
-            console.log('top time updated');
+            if (time < topTime) {
+                console.log(`New top time ${time} better than best time ${topTime}`);
+                try {
+                    await axios.patch(`${apiBaseUrl}/user/${user}`, {
+                    "level1": { "topTime": time, "deaths": deaths }
+                })
+                } catch(err) {
+                    console.log('updateTopTime patch operation');
+                    console.log(err);
+                }
+                console.log('top time updated');
+            } else {
+                console.log(`${time} is not better than top time ${topTime}`);
+            }
         } else {
-            console.log(`${time} is not better than top time ${topTime}`);
+            console.log(`No time found for user. Updating Top Time to ${time}`);
+            try {
+                await addNewUser(user, levelName, time, deaths);
+                // await axios.post(`${apiBaseUrl}/users/new`, {
+                //     userId: user,
+                //     highestLevelComplete: levelName,
+                //     level1: {topTime: time, deaths: deaths}
+                // })
+            } catch(err) {
+
+            }
         }
     } catch(err) {
         console.log(err);

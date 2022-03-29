@@ -17,8 +17,8 @@
         <div id="pageTitle" class="logo">
           <span class="titleText">Dungeon Diver</span>
         </div>
-        <div id="loginWrap">
-          <div id="loginDiv" class="login level">
+        <div id="loginWrap" class="level">
+          <div id="loginDiv" class="login">
             <form name="loginForm" id="loginForm">
               <label for="userName">User ID</label>
               <input
@@ -45,18 +45,20 @@
       <!-- Main Content -->
       <main class="container">
         <div class="main-wrap">
-          <div id="playerStats" class="sidebar card">
-            <h3 class="card-header-title">Player stats</h3>
-            <div id="level1Stats" class="card-content"></div>
+          <div id="playerStats" class="sidebar">
+            <h3 class="sidebarHead titles">Player stats</h3>
+            <div id="level1Stats" class="stats"></div>
           </div>
-          <div id="gameContainer" class="container card">
+          <div id="gameContainer" class="container">
             <div id="game" class="container"></div>
             <div id="gameUI"></div>
           </div>
-          <div id="leaderBoard" class="sidebar card">
-            <h4 class="card-header-title">Leader Board</h4>
-            <h4 class="card-header-title">Level 1</h4>
-            <ol id="level1LeaderList" class="card-content"></ol>
+          <div id="leaderBoard" class="sidebar">
+            <h4 class="sidebarHead titles">Leader Board</h4>
+            <h4 class="sidebarHead titles">Level 1</h4>
+            <div class="leaderboard">
+              <ol id="level1LeaderList"></ol>
+            </div>
           </div>
         </div>
       </main>
