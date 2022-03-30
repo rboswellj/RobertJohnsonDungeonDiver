@@ -1,7 +1,6 @@
 import game from './game/app.js';
 
-import {getAllUsers, getUser, loginUser, signupUser, addNewUser} from './js/apiRoutes';
-import axios from 'axios';
+import {getAllUsers, getUser, loginUser, signupUser, getSession} from './js/apiRoutes';
 
 const leaderBoards = document.getElementById('leaderBoard');
 const boardList = document.getElementById('level1LeaderList');
@@ -12,7 +11,13 @@ const loginDiv = document.getElementById("loginWrap");
 let loginForm = document.getElementById("loginForm");
 
 
-export let currentUserName = '';
+export let globalTopTime;
+
+export let currentUserName;
+
+const loadSession = setTimeout(async () => {
+    let response = await getSession();
+}, 10000);
 
 // addNewUser("steve", "level1", "35", "0");
 
@@ -22,7 +27,7 @@ document.getElementById("loginButton").addEventListener("click", async function(
     event.preventDefault();
     let loginId = loginForm.userId.value;
     let loginPass = loginForm.password.value
-    console.log(`login: ${loginId} pass: ${loginPass}`);
+    // console.log(`login: ${loginId} pass: ${loginPass}`);
     await loginUser(loginId, loginPass);
     // loginUser("rboswellj@gmail.com", "mypassword");
   });
@@ -37,7 +42,7 @@ document.getElementById("loginButton").addEventListener("click", async function(
 
 export async function authedUser(userId) {
     currentUserName = userId;
-    console.log(currentUserName);
+    // console.log(currentUserName);
     loginDiv.style.display = "none";
     await currentUserInfo(userId);
 } 
@@ -47,7 +52,7 @@ export async function currentUserInfo() {
         try {
             const response = await getUser(currentUserName);
             let data = response.data;
-            console.log(data);
+            // console.log(data);
             
             level1Stats.innerHTML = `
             <h4>Level One Stats for ${data.userId}</h4>
@@ -81,7 +86,7 @@ export async function rankUsers() {
             userArray.push(data);
         }
         userArray.sort((a,b) => (parseFloat(a.topTime) > parseFloat(b.topTime)) ? 1 : ((parseFloat(b.topTime) > parseFloat(a.topTime)) ? -1 : 0))
-        console.log(userArray);
+        // console.log(userArray);
         boardList.innerHTML = "";
         userArray.forEach(user => {
             boardList.innerHTML += `<li>${user.userId} : ${user.topTime}`;

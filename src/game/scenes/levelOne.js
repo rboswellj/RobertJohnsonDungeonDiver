@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
 import axios from 'axios';
-import {updateTopTime} from '../../js/apiRoutes';
-import {printKeys, rankUsers, currentUserInfo, currentUserName} from '../../index'
+import {getUserTopTime, updateTopTime} from '../../js/apiRoutes';
+import {printKeys, rankUsers, currentUserInfo, currentUserName, globalTopTime} from '../../index'
+import {topTime, newTime} from './LevelCompleteScene';
 
-class levelOne extends Phaser.Scene
+export default class LevelOne extends Phaser.Scene
 {
     constructor ()
     {
@@ -22,20 +23,12 @@ class levelOne extends Phaser.Scene
         this.levelName = 'level1';
         printKeys(0);
         console.log(currentUserName);
+        this.levelCompleted = false;
     }
-
-    // preload ()
-    // {
-    //     this.load.image('gameTiles', './src/assets/Tiles.png');
-    //     this.load.tilemapTiledJSON('tilemap', './src/assets/dungeon1.json');
-    //     this.load.spritesheet('player', './src/assets/playerSpriteSheet.png', { frameWidth: 16, frameHeight: 16 });
-    //     this.load.image('goal', './src/assets/goal.png');
-    //     this.load.image('door', './src/assets/door.png');
-    //     this.load.image('key', './src/assets/key.png');
-    // }
       
     create ()
     {
+
     // Map and tiles
     // this.pauseScene();
     // Load in tileset
@@ -69,7 +62,10 @@ class levelOne extends Phaser.Scene
     // key 2
     this.physics.add.overlap(this.player, this.key2, this.getKey, null, this);
     // goal
-    this.physics.add.overlap(this.player, this.goal, this.levelComplete, null, this);
+    this.physics.add.overlap(this.player, this.goal, () => {
+        this.levelComplete();
+        this.levelCompleted = true;
+    }, null, this);
     // door 1
     this.physics.add.collider(this.player, this.door1, null, function(){
         if(this.keyCount > 0 ) {
@@ -209,14 +205,18 @@ class levelOne extends Phaser.Scene
     .setFill(this.timer.paused ? '#FFFF00' : '#00FFFF')
     .setText(this.timer.getElapsedSeconds().toFixed(3));
 
-    }
+    // if(this.levelCompleted) {
+    //     setTimeout(this.goToComplete(), 5000);
+    // }
+
+}
 
     getKey (player, key) {
         key.disableBody(true, true);
         this.keyCount++;
         printKeys(this.keyCount);
-        console.log(`Key picked up at ${this.timer.getElapsedSeconds().toFixed(1)}`);
-        console.log('keys: ' + this.keyCount);
+        // console.log(`Key picked up at ${this.timer.getElapsedSeconds().toFixed(1)}`);
+        // console.log('keys: ' + this.keyCount);
     }
 
     openDoor (player, door) {
@@ -225,20 +225,27 @@ class levelOne extends Phaser.Scene
             printKeys(this.keyCount);
             door.disableBody();
             door.destroy();
-            console.log(`door opened at ${this.timer.getElapsedSeconds().toFixed(1)}`);
+            // console.log(`door opened at ${this.timer.getElapsedSeconds().toFixed(1)}`);
         }
     }
 
     async levelComplete(player, goal) {
-        goal.disableBody(true, true);
+        this.goal.disableBody(true, true);
         console.log('Goal reached');
         this.timer.paused = true;
         this.endTime = this.timer.getElapsedSeconds().toFixed(3);
         console.log(`End Time: ${this.endTime}`);
+        let topTime = await getUserTopTime(this.user, this.levelName);
         await updateTopTime(this.user, this.levelName, this.endTime, this.deaths);
         await rankUsers();
         await currentUserInfo();
-        return;
+        this.goToComplete();
+        // this.levelCompleted = true; 
+    }
+
+
+    goToComplete() {
+        this.scene.start('LevelComplete');
     }
 
     pauseScene () {
@@ -253,21 +260,4 @@ class levelOne extends Phaser.Scene
 
 }
 
-// const config = {
-//     type: Phaser.AUTO,
-//     parent: 'game',
-//     width: 320,
-//     height: 320,
-//     physics: { 
-//         default: 'arcade',
-//         arcade: {
-//             debug: false,
-//             gravity: 0
-//         }
-//     },
-//     scene: levelOne
-// };
 
-// const game = new Phaser.Game(config);
-
-export default levelOne;
