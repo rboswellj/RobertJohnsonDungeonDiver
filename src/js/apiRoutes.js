@@ -8,9 +8,6 @@ const apiPort = config.apiServerPort;
 const apiBaseUrl = `${config.apiUrl}/api`;
 const apiLoginBase = `${config.apiUrl}/auth`;
 
-console.log(apiBaseUrl);
-console.log(apiLoginBase);
-
 export let levelCompleteMsg = [];
 export let timeIsBetter = false;
 
@@ -72,7 +69,7 @@ export async function setSession(userId, token) {
 export async function getSession() {
   try {
     let response = await axios.get(`${apiLoginBase}/get-session`);
-    console.log(response.data);
+    // console.log(response.data);
   } catch (err) {
     console.error('getSession apiRoutes, line 64');
     console.error(err);
@@ -160,7 +157,6 @@ export async function updateTopTime(user, levelName, time, deaths) {
   try {
     if (user) {
       const topTime = parseFloat(await getUserTopTime(user, levelName));
-      console.log(topTime);
       if (topTime) {
         try {
           parseFloat(time, time);
@@ -177,16 +173,16 @@ export async function updateTopTime(user, levelName, time, deaths) {
               level1: { topTime: time, deaths: deaths },
             });
           } catch (err) {
-            console.log('updateTopTime patch operation');
-            console.log(err);
+            console.error('updateTopTime patch operation');
+            console.error(err);
           }
-          console.log('top time updated');
+          // console.log('top time updated');
         } else {
-          console.log(`${time} is not better than top time ${topTime}`);
+          // console.log(`${time} is not better than top time ${topTime}`);
           timeIsBetter = false;
         }
       } else {
-        console.log(`No time found for user. Updating Top Time to ${time}`);
+        // console.log(`No time found for user. Updating Top Time to ${time}`);
         levelCompleteMsg = [`${time}`];
         try {
           await addNewUser(user, levelName, time, deaths);
@@ -195,7 +191,7 @@ export async function updateTopTime(user, levelName, time, deaths) {
         }
       }
     } else {
-        console.log("No user signed in");
+        // console.log("No user signed in");
     }
   } catch (err) {
     console.error(err);

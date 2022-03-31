@@ -22,7 +22,7 @@ export default class LevelOneScene extends Phaser.Scene
         this.user = currentUserName;
         this.levelName = 'level1';
         printKeys(0);
-        console.log(currentUserName);
+        // console.log(currentUserName);
         this.levelCompleted = false;
     }
       
@@ -71,7 +71,7 @@ export default class LevelOneScene extends Phaser.Scene
         if(this.keyCount > 0 ) {
             this.openDoor(this.player, this.door1);
         } else {
-            console.log('Door Locked, zero keys collected');
+            // console.log('Door Locked, zero keys collected');
         }
     }, this);
     // door 2
@@ -79,7 +79,7 @@ export default class LevelOneScene extends Phaser.Scene
         if(this.keyCount > 0 ) {
             this.openDoor(this.player, this.door2);
         } else {
-            console.log('Door Locked, zero keys collected');
+            // console.log('Door Locked, zero keys collected');
         }
     }, this);
 
@@ -231,10 +231,10 @@ export default class LevelOneScene extends Phaser.Scene
 
     async levelComplete(player, goal) {
         this.goal.disableBody(true, true);
-        console.log('Goal reached');
+        // console.log('Goal reached');
         this.timer.paused = true;
         this.endTime = this.timer.getElapsedSeconds().toFixed(3);
-        console.log(`End Time: ${this.endTime}`);
+        // console.log(`End Time: ${this.endTime}`);
         let topTime = await getUserTopTime(this.user, this.levelName);
         await updateTopTime(this.user, this.levelName, this.endTime, this.deaths);
         await rankUsers();

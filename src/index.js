@@ -29,7 +29,7 @@ document.getElementById("loginButton").addEventListener("click", async function(
     event.preventDefault()
     let loginId = loginForm.userId.value;
     let loginPass = loginForm.password.value
-    console.log(`login: ${loginId} pass: ${loginPass}`);
+    // console.log(`login: ${loginId} pass: ${loginPass}`);
     await signupUser(loginId, loginPass);
   });
 
@@ -59,7 +59,7 @@ export async function currentUserInfo() {
         } catch(err) {
             level1Stats.innerHTML = `No levels completed`;
             console.error('current user info route');
-            console.log(err);
+            console.error(err);
         }
     } else {
         level1Stats.innerHTML = "Login or create account to see your stats";
@@ -88,7 +88,7 @@ export async function rankUsers() {
         
 
     } catch(err) {
-        console.log(err);
+        console.error(err);
     }
 }
 
