@@ -4,7 +4,7 @@ import {getUserTopTime, updateTopTime} from '../../js/apiRoutes';
 import {printKeys, rankUsers, currentUserInfo, currentUserName, globalTopTime} from '../../index'
 import {topTime, newTime} from './LevelCompleteScene';
 
-export default class LevelOne extends Phaser.Scene
+export default class LevelOneScene extends Phaser.Scene
 {
     constructor ()
     {

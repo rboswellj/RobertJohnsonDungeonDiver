@@ -1,5 +1,4 @@
 import game from './game/app.js';
-
 import {getAllUsers, getUser, loginUser, signupUser, getSession} from './js/apiRoutes';
 
 const leaderBoards = document.getElementById('leaderBoard');
@@ -12,17 +11,10 @@ let loginForm = document.getElementById("loginForm");
 
 
 export let globalTopTime;
-
 export let currentUserName;
 
-const loadSession = setTimeout(async () => {
-    let response = await getSession();
-}, 10000);
 
-// addNewUser("steve", "level1", "35", "0");
-
-// updateTopTime(currentUserName, "level1", "9.001", 0);
-
+// Login User Click Event
 document.getElementById("loginButton").addEventListener("click", async function(event){
     event.preventDefault();
     let loginId = loginForm.userId.value;
@@ -32,6 +24,7 @@ document.getElementById("loginButton").addEventListener("click", async function(
     // loginUser("rboswellj@gmail.com", "mypassword");
   });
 
+// Create User Click Event
   document.getElementById("createUser").addEventListener("click", async function(event){
     event.preventDefault()
     let loginId = loginForm.userId.value;
@@ -40,19 +33,19 @@ document.getElementById("loginButton").addEventListener("click", async function(
     await signupUser(loginId, loginPass);
   });
 
+  // Used to return userID of authorized user from the login function in apiRoutes
 export async function authedUser(userId) {
     currentUserName = userId;
-    // console.log(currentUserName);
     loginDiv.style.display = "none";
     await currentUserInfo(userId);
 } 
 
+// Displays the top time etc for current user when logged in
 export async function currentUserInfo() {
     if(currentUserName) {
         try {
             const response = await getUser(currentUserName);
             let data = response.data;
-            // console.log(data);
             
             level1Stats.innerHTML = `
             <h4>Level One Stats for ${data.userId}</h4>
@@ -74,6 +67,7 @@ export async function currentUserInfo() {
 }
 currentUserInfo(currentUserName);
 
+// Creates the leader board using a list of all user's with a recorded score pushed into a sorted array
 export async function rankUsers() {
     try {
         let userArray = [];
@@ -99,11 +93,13 @@ export async function rankUsers() {
 }
 
 rankUsers();
-let gameUI = document.getElementById('gameUI');
 
+// Creates the div that displays currently collected keys
+let gameUI = document.getElementById('gameUI');
 let keyDiv = document.createElement('div');
 gameUI.appendChild(keyDiv);
 
+// called from the game to change the number of keys when one is collected or used.
 export function printKeys(keys) {
     keyDiv.innerHTML = `Keys: `
     let keyImage = `<img src="src/assets/key.png" height="20px" width="20px">`;

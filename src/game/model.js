@@ -1,3 +1,5 @@
+// This is for toggling options for audio, which I haven't really implemented
+// Technically the music will play, I have tested it, I just found it annoying.
 export default class Model {
     constructor() {
       this._soundOn = true;
@@ -22,6 +24,4 @@ export default class Model {
     get bgMusicPlaying() {
       return this._bgMusicPlaying;
     }
-
-
   }

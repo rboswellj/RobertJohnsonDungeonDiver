@@ -8,30 +8,11 @@ Scores are updated for each user.
 User authentication is accomplished through http calls to the API,
 The API has a connection to a Mongo DB which holds the account information.
 
-Requirements to Run:
-Node
-local MongoDB
-A separate repo containing the API will also need to be running.
-
-The application makes calls to my backend API which is held in a separate repository.
-Located at https://github.com/rboswellj/RobertJohnsonDungeonDiverApi
-By default this app runs on port 8080 API runs on port 5000 of localhost
-If the person running this needs to change these ports they will need to change the variables
-const apiBaseUrl = 'http://localhost:5000/api';
-const apiLoginBase = 'http://localhost:5000/auth';
-which are located in ./src/js/apiRoutes.js at the top
-
-In the API the port can be changed by setting the variable 
-const expressPort = '5000';
-in the index.js files
-
-The Api also requires a Mongo DB to be installed and run on port 27017, or there is a config file located at ./src/config.js
-The DB address can be changed here. Mongo should contain a DB called "Dungeon-Diver" with a collection called "users".
-This shouldn't really require any initial data. The DB is currently only used to store the username and an encrypted password
-for new user accounts. All other data is public and stored on the API as a JSON file.
-
-
 Frontend:
+https://github.com/rboswellj/RobertJohnsonDungeonDiver
+Backend:
+https://github.com/rboswellj/RobertJohnsonDungeonDiverApi
+
 This repo contains the front end application which uses Webpack.
 
 I built the game using the Phaser 3 JS library.
@@ -43,6 +24,30 @@ The game is simple, you just need to get to the stairs in as little time as poss
 Players are ranked based on who gets there the fastest. Ideally there will be at least 3 levels
 by the time I turn this project in, depending on how long all of the backend communication and
 authorization takes to get set up.
+
+Requirements to Run:
+Node
+local MongoDB
+A separate repo containing the API will also need to be running.
+
+The application makes calls to my backend API which is held in a separate repository.
+
+The Api also requires a Mongo DB to be installed and running, 
+Mongo should contain a DB called "Dungeon-Diver" with a collection called "users".
+This shouldn't really require any initial data. 
+The DB is currently only used to store the username and an encrypted password
+for new user accounts. All other data is public and stored on the API as a JSON file.
+
+If you have the MongoDB running on the correct ports, you should just need to open the two node projects and
+enter "npm install" on each of them. 
+Then you should just need to run "npm start" on each and their respective servers should start up.
+
+I've set these ports in a config.js file in the source folder of both repos if you need to change them.
+
+API http://localhost:5000/
+App http://localhost:8080/
+DB http://localhost:27017
+
 
 Project Requirements Met:
     1. Read and pars an external file
@@ -59,6 +64,18 @@ Project Requirements Met:
         The login form writes the username and an encrypted password to the database when the "Create Account" button
         is pressed. It is also used to retrieve a login token when the "login" button is pressed, if the user and password
         match what is in the database.
+    6. Calculate and Display Data Based on an external factor
+        The running from the time the start button is pressed to the time the goal is reached is calculated. It is then
+        compared to the user's previous speed record and if it is faster, the record is updated for the user. The top 
+        speeds for all user's are also ranked in a leader board.
+    7. Create an array, dictionary or list, populate it with multiple value
+        The leader board is made up of an array. Each time the function rankUsers() is called from the index.js file in the app
+        it pulls in a complete list of all the user's stored in the json file on the api and pushes their names and top times to
+        an array. This array is then sorted from lowest time to highest and the result is inserted into an ordered list that makes
+        up the leader board.
+    8. Create a Web Server with at least one route.
+        The Api backend.
+    
     
     
 
