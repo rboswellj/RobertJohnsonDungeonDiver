@@ -30,12 +30,15 @@ Node
 local MongoDB
 A separate repo containing the API will also need to be running.
 
+I included some installation instructions for MongoDb in the readme
+for the Api repo.
+
 The application makes calls to my backend API which is held in a separate repository.
 
 The Api also requires a Mongo DB to be installed and running, 
 Mongo should contain a DB called "Dungeon-Diver" with a collection called "users".
-This shouldn't really require any initial data. 
-The DB is currently only used to store the username and an encrypted password
+This shouldn't require any initial data. 
+The DB is currently only used to store the username and an encrypted password.
 for new user accounts. All other data is public and stored on the API as a JSON file.
 
 If you have the MongoDB running on the correct ports, you should just need to open the two node projects and

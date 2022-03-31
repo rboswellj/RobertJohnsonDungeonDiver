@@ -6,7 +6,7 @@ export default class PreloaderScene extends Phaser.Scene {
   }
   preload() {
     // add logo image
-    this.add.image(400, 200, 'logo');
+    this.add.image(50, 50, 'logo');
     // display progress bar
     var progressBar = this.add.graphics();
     var progressBox = this.add.graphics();
@@ -19,7 +19,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 - 50,
       text: 'Loading...',
       style: {
-        font: '20px monospace',
+        font: '12px monospace',
         fill: '#ffffff',
       },
     });
@@ -29,7 +29,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 - 5,
       text: '0%',
       style: {
-        font: '18px monospace',
+        font: '12px monospace',
         fill: '#ffffff',
       },
     });
@@ -39,7 +39,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 + 50,
       text: '',
       style: {
-        font: '18px monospace',
+        font: '12px monospace',
         fill: '#ffffff',
       },
     });
@@ -93,9 +93,9 @@ export default class PreloaderScene extends Phaser.Scene {
     this.scene.start('Title');
     // this.scene.start('LevelComplete');
 
-    this.readyCount++;
-    if (this.readyCount === 2) {
-      this.scene.start('Title');
-    }
+    // this.readyCount++;
+    // if (this.readyCount === 2) {
+    //   this.scene.start('Title');
+    // }
   }
 }
