@@ -4,8 +4,12 @@ import { config } from '../config';
 
 const apiPort = config.apiServerPort;
 
-const apiBaseUrl = `http://localhost:${apiPort}/api`;
-const apiLoginBase = `http://localhost:${apiPort}/auth`;
+// const apiBaseUrl = `http://localhost:${apiPort}/api`;
+const apiBaseUrl = `${config.apiUrl}/api`;
+const apiLoginBase = `${config.apiUrl}/auth`;
+
+console.log(apiBaseUrl);
+console.log(apiLoginBase);
 
 export let levelCompleteMsg = [];
 export let timeIsBetter = false;
@@ -38,14 +42,6 @@ export async function loginUser(userId, password) {
       });
       // console.log(response.data);
       authedUser(response.data.userId);
-
-      // const session = await axios.get(`${apiLoginBase}/set-session`, { params: {
-      //     userId: userId,
-      //     token: token.data.token
-      // } });
-    //   console.log(
-    //     `starting session for ${userId} with token ${token.data.token}`
-    //   );
 
       const session = await setSession(userId, token.data.token);
     } catch (err) {
