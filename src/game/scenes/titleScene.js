@@ -1,8 +1,6 @@
 import Phaser from 'phaser';
 import config from '../config';
 import Button from '../objects/button'
-import LevelComplete from './levelCompleteScene';
-
 export default class TitleScene extends Phaser.Scene {
   constructor() {
     super('Title');

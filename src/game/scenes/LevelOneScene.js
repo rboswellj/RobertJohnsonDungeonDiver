@@ -2,8 +2,6 @@ import Phaser from 'phaser';
 import axios from 'axios';
 import {getUserTopTime, updateTopTime} from '../../js/apiRoutes';
 import {printKeys, rankUsers, currentUserInfo, currentUserName, globalTopTime} from '../../index'
-import {topTime, newTime} from './LevelCompleteScene';
-
 export default class LevelOneScene extends Phaser.Scene
 {
     constructor ()

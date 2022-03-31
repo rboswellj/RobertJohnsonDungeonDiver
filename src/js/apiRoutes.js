@@ -40,7 +40,7 @@ export async function loginUser(userId, password) {
       // console.log(response.data);
       authedUser(response.data.userId);
 
-      const session = await setSession(userId, token.data.token);
+      // const session = await setSession(userId, token.data.token);
     } catch (err) {
       console.error('loginUser - exchange token route');
       console.error(err);
@@ -62,7 +62,7 @@ export async function setSession(userId, token) {
     // console.log(response.data);
   } catch (err) {
     console.error('setSession, apiRoutes, line 55');
-    console.error(error);
+    console.error(err);
   }
 }
 
