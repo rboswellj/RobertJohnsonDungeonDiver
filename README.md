@@ -25,31 +25,10 @@ Players are ranked based on who gets there the fastest. Ideally there will be at
 by the time I turn this project in, depending on how long all of the backend communication and
 authorization takes to get set up.
 
-Requirements to Run:
-Node
-local MongoDB
-A separate repo containing the API will also need to be running.
-
-I included some installation instructions for MongoDb in the readme
-for the Api repo.
-
-The application makes calls to my backend API which is held in a separate repository.
-
-The Api also requires a Mongo DB to be installed and running, 
-Mongo should contain a DB called "Dungeon-Diver" with a collection called "users".
-This shouldn't require any initial data. 
-The DB is currently only used to store the username and an encrypted password.
-for new user accounts. All other data is public and stored on the API as a JSON file.
-
-If you have the MongoDB running on the correct ports, you should just need to open the two node projects and
-enter "npm install" on each of them. 
-Then you should just need to run "npm start" on each and their respective servers should start up.
-
-I've set these ports in a config.js file in the source folder of both repos if you need to change them.
-
-API http://localhost:5000/
-App http://localhost:8080/
-DB http://localhost:27017
+TO RUN:
+I have set up the API on Heroku, so the app will now function without running the DB or the server. You just need to run
+npm install on this repo, and then npm start. The create account and login/logout options should function as expected using the
+heroku repo, you do not need to run those locally.
 
 
 Project Requirements Met:
@@ -79,7 +58,32 @@ Project Requirements Met:
     8. Create a Web Server with at least one route.
         The Api backend.
     
-    
+
+Requirements to Run all locally:
+Node
+local MongoDB
+A separate repo containing the API will also need to be running.
+
+I included some installation instructions for MongoDb in the readme
+for the Api repo.
+
+The application makes calls to my backend API which is held in a separate repository.
+
+The Api also requires a Mongo DB to be installed and running, 
+Mongo should contain a DB called "Dungeon-Diver" with a collection called "users".
+This shouldn't require any initial data. 
+The DB is currently only used to store the username and an encrypted password.
+for new user accounts. All other data is public and stored on the API as a JSON file.
+
+If you have the MongoDB running on the correct ports, you should just need to open the two node projects and
+enter "npm install" on each of them. 
+Then you should just need to run "npm start" on each and their respective servers should start up.
+
+I've set these ports in a config.js file in the source folder of both repos if you need to change them.
+
+API http://localhost:5000/
+App http://localhost:8080/
+DB http://localhost:27017
     
 
 
