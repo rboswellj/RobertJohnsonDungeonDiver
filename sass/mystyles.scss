@@ -87,9 +87,25 @@ main {
     align-content: center;
   }
 
+  #logoutBtn {
+    display: none;
+  }
+
   .titleText {
     font-size: 2em;
     font-weight: 700;
+  }
+
+  .label {
+    color: $offWhite;
+    font-weight: 500;
+  }
+
+  .button {
+    height: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #game {

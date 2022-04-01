@@ -1,6 +1,10 @@
 const axios = require('axios');
 import { authedUser, currentUserName, globalTopTime } from '../index';
 import { config } from '../config';
+let storage = localStorage;
+let storedToken = storage.getItem("token");
+
+console.log(storedToken);
 
 const apiPort = config.apiServerPort;
 
@@ -30,6 +34,7 @@ export async function loginUser(userId, password) {
       password: password,
     };
     const token = await axios.post(`${apiLoginBase}/login`, loginObject);
+    storage.setItem("token",token.data.token);
     // console.log(token.data.token);
     try {
       const response = await axios.get(`${apiLoginBase}/me`, {
@@ -39,6 +44,7 @@ export async function loginUser(userId, password) {
       });
       // console.log(response.data);
       authedUser(response.data.userId);
+
 
       // const session = await setSession(userId, token.data.token);
     } catch (err) {
@@ -51,6 +57,22 @@ export async function loginUser(userId, password) {
     document.getElementById('loginMessage').innerHTML =
       'invalid Login or Password';
   }
+}
+
+export async function loginCachedUser(token) {
+    try {
+      const response = await axios.get(`${apiLoginBase}/me`, {
+        headers: {
+          token: token,
+        },
+      });
+      // console.log(response.data);
+      authedUser(response.data.userId);
+    } catch (err) {
+      // storage.removeItem("token");
+      console.error('loginUser - exchange token route');
+      console.error(err);
+    }
 }
 
 // Deals with maintaining login sessions

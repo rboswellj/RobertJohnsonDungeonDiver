@@ -1,18 +1,33 @@
 import game from './game/app.js';
-import {getAllUsers, getUser, loginUser, signupUser, getSession} from './js/apiRoutes';
+import {getAllUsers, getUser, loginUser, signupUser, loginCachedUser} from './js/apiRoutes';
 
 const leaderBoards = document.getElementById('leaderBoard');
 const boardList = document.getElementById('level1LeaderList');
 const statsDiv = document.getElementById("playerStats");
 const level1Stats = document.getElementById("level1Stats");
+const logoutButton = document.getElementById("logoutBtn");
+logoutButton.style.display = "none";
 
 const loginDiv = document.getElementById("loginWrap");
 let loginForm = document.getElementById("loginForm");
 
+let storage = localStorage;
 
 export let globalTopTime;
 export let currentUserName;
 
+async function checkForCache() {
+    let stored = storage.getItem("token");
+    if(stored) {
+        try {
+            await loginCachedUser(stored);
+        } catch(err) {
+            console.error(err);
+            storage.removeItem("token");
+        }
+    }
+}
+checkForCache();
 
 // Login User Click Event
 document.getElementById("loginButton").addEventListener("click", async function(event){
@@ -33,10 +48,19 @@ document.getElementById("loginButton").addEventListener("click", async function(
     await signupUser(loginId, loginPass);
   });
 
+  logoutButton.addEventListener("click", () => {
+      storage.removeItem("token");
+      loginDiv.style.display = "flex";
+      logoutButton.style.display = "none";
+      currentUserName = "";
+      currentUserInfo();
+  });
+
   // Used to return userID of authorized user from the login function in apiRoutes
 export async function authedUser(userId) {
     currentUserName = userId;
     loginDiv.style.display = "none";
+    logoutButton.style.display = "inline";
     await currentUserInfo(userId);
 } 
 
