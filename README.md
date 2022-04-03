@@ -26,9 +26,16 @@ by the time I turn this project in, depending on how long all of the backend com
 authorization takes to get set up.
 
 TO RUN:
-I have set up the API on Heroku, so the app will now function without running the DB or the server. You just need to run
-npm install on this repo, and then npm start. The create account and login/logout options should function as expected using the
-heroku repo, you do not need to run those locally.
+I have set up the API on Heroku, so the app will now function without running the DB or the server. 
+You just need to run
+npm install 
+on this repo, and then 
+npm start.
+then site should be available at http://localhost:8080
+
+The create account and login/logout options should function as expected using the
+heroku repo, you do not need to run the api repo locally.
+
 
 
 Project Requirements Met:
